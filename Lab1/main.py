@@ -64,8 +64,13 @@ class Game2D:
             self.board[height][width] = self.CHEST_SYMBOL
 
     def create_and_insert_player(self, height, width):
+        if self.player_created:
+            # print(f'Only 1 player allowed!')
+            raise Exception('PlayerAlreadyCreated')
+
         self.player = Player(height, width)
         self.change_player_position(height, width, True)
+        self.player_created = True
 
     def move_player(self, direction):
         current_height, current_width = self.player.get_current_position()
@@ -86,25 +91,23 @@ class Game2D:
         result = self.change_player_position(new_height, new_width)
         if result is False:
             print(f'Move {direction} not allowed')
+            return False
+        else:
+            return True
 
-    def __init__(self, player_starting_height=0, player_starting_width=0):
+    def __init__(self, player_starting_height=4, player_starting_width=4):
         self.BOARD_WIDTH = 20
         self.BOARD_HEIGHT = 10
         self.BORDER_SYMBOL = '#'
         self.EMPTY_SYMBOL = ' '
         self.CHEST_SYMBOL = 'C'
         self.PLAYER_SYMBOL = 'P'
-        self.PLAYER_STARTING_POSITION_HEIGHT = 4
-        self.PLAYER_STARTING_POSITION_WIDTH = 4
-        if player_starting_height != 0:
-            self.PLAYER_STARTING_POSITION_HEIGHT = player_starting_height
-        if player_starting_width != 0:
-            self.PLAYER_STARTING_POSITION_WIDTH = player_starting_width
+        self.player_created = False
         self.player = None
         self.board = [[self.EMPTY_SYMBOL] * self.BOARD_WIDTH for i in range(self.BOARD_HEIGHT)]
 
         self.initialize_borders()
-        self.create_and_insert_player(self.PLAYER_STARTING_POSITION_HEIGHT, self.PLAYER_STARTING_POSITION_WIDTH)
+        self.create_and_insert_player(player_starting_height, player_starting_width)
 
 
 if __name__ == '__main__':
