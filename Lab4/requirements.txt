@@ -1,0 +1,12 @@
+mock~=4.0.3
+verify~=1.1.1
+setuptools~=58.1.0
+pip~=21.2.4
+toml~=0.10.2
+py~=1.11.0
+pybuilder~=0.13.4
+colorama~=0.4.4
+packaging~=21.3
+pytest~=6.2.5
+pluggy~=1.0.0
+pyparsing~=3.0.6
